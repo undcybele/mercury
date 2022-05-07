@@ -17,6 +17,7 @@ import {ChatViewComponent} from './components/dashboard/chat-view/chat-view.comp
 import {ContactOverviewComponent} from './components/dashboard/contact-overview/contact-overview.component';
 import {MessageInputRowComponent} from './components/dashboard/message-input-row/message-input-row.component';
 import {AccountComponent} from './components/account/account.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {AccountComponent} from './components/account/account.component';
     RouterModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,6 +13,7 @@ const routes: Routes = [
       import('./auth/auth.module').then(m => m.AuthModule)
   },
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard/:chatRoomId', component: DashboardComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
