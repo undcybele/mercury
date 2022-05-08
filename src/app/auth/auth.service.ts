@@ -1,5 +1,5 @@
 import {Injectable, NgZone} from '@angular/core';
-import {User} from '../models/IUser';
+import {IUser} from '../models/IUser';
 import * as auth from 'firebase/auth';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {
@@ -84,11 +84,14 @@ export class AuthService {
       });
   }
 
+  // Returns an IUser object when a user is logged in
+  get getLoggedUser(): IUser {
+    return JSON.parse(localStorage.getItem('user')!);
+  }
+
   // Returns true when user is logged in and email is verified
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    console.log(user)
-    return user !== null && user.emailVerified !== false;
+    return this.getLoggedUser !== null
   }
 
   // Sign in with Google
@@ -122,7 +125,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
-    const userData: User = {
+    const userData: IUser = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
