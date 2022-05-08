@@ -1,0 +1,7 @@
+.sidebar {
+  flex: 1 !important;
+}
+
+.chat {
+  flex: 4 !important;
+}
