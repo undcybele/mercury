@@ -12,12 +12,27 @@ import {firebaseConfig} from "../environments/firebase.config";
 import {SidebarComponent} from './components/dashboard/sidebar/sidebar.component';
 import {ContactListComponent} from './components/dashboard/sidebar/contact-list/contact-list.component';
 import {UtilitiesRowComponent} from './components/dashboard/sidebar/utilities-row/utilities-row.component';
-import {SearchRowComponent} from './components/dashboard/sidebar/search-row/search-row.component';
-import {ChatViewComponent} from './components/dashboard/chat-view/chat-view.component';
-import {ContactOverviewComponent} from './components/dashboard/contact-overview/contact-overview.component';
-import {MessageInputRowComponent} from './components/dashboard/message-input-row/message-input-row.component';
+import {ChatViewComponent} from './components/dashboard/chat/chat-view/chat-view.component';
+import {ContactOverviewComponent} from './components/dashboard/chat/contact-overview/contact-overview.component';
+import {MessageInputRowComponent} from './components/dashboard/chat/message-input-row/message-input-row.component';
 import {AccountComponent} from './components/account/account.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {
+  NbActionsModule, NbButtonModule,
+  NbCardModule, NbChatModule, NbFormFieldModule, NbIconModule, NbInputModule,
+  NbLayoutModule,
+  NbListModule,
+  NbMenuModule,
+  NbSidebarModule, NbSidebarService, NbTagModule,
+  NbThemeModule,
+  NbUserModule, NbWindowModule
+} from "@nebular/theme";
+import {ChatComponent} from './components/dashboard/chat/chat.component';
+import {NbEvaIconsModule} from "@nebular/eva-icons";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {
+  ChatInputFormComponent
+} from './components/dashboard/sidebar/utilities-row/chat-input-form/chat-input-form.component';
 
 @NgModule({
   declarations: [
@@ -28,20 +43,40 @@ import {FormsModule} from "@angular/forms";
     SidebarComponent,
     ContactListComponent,
     UtilitiesRowComponent,
-    SearchRowComponent,
     ChatViewComponent,
     ContactOverviewComponent,
     MessageInputRowComponent,
-    AccountComponent
+    AccountComponent,
+    ChatComponent,
+    ChatInputFormComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    NbWindowModule,
     RouterModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     FormsModule,
+    NbThemeModule.forRoot({name: 'dark'}),
+    NbWindowModule.forRoot(),
+    NbListModule,
+    NbCardModule,
+    NbUserModule,
+    NbLayoutModule,
+    NbMenuModule.forRoot(),
+    NbSidebarModule,
+    NbActionsModule,
+    NbEvaIconsModule,
+    NbIconModule,
+    NbChatModule,
+    NbButtonModule,
+    ReactiveFormsModule,
+    NbFormFieldModule,
+    NbInputModule,
+    NbTagModule,
   ],
-  providers: [],
+  providers: [NbSidebarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
