@@ -1,1 +1,8 @@
-<p>contact-list works!</p>
+<nb-card>
+  <nb-list>
+    <nb-list-item *ngFor="let user of contacts">
+      <nb-user [name]="user.name">
+      </nb-user>
+    </nb-list-item>
+  </nb-list>
+</nb-card>

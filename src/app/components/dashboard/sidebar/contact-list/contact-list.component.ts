@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {IChatRoom} from "../../../../models/IChatRoom";
 
 @Component({
   selector: 'app-contact-list',
@@ -6,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit {
-
+  contacts: Array<{ name: string }> = [{name: "Nicoleta"}, {name: "Larisa"}, {name: "Ana"}]
   constructor() {
   }
 
