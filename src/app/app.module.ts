@@ -12,9 +12,7 @@ import {firebaseConfig} from "../environments/firebase.config";
 import {SidebarComponent} from './components/dashboard/sidebar/sidebar.component';
 import {ContactListComponent} from './components/dashboard/sidebar/contact-list/contact-list.component';
 import {UtilitiesRowComponent} from './components/dashboard/sidebar/utilities-row/utilities-row.component';
-import {ChatViewComponent} from './components/dashboard/chat/chat-view/chat-view.component';
 import {ContactOverviewComponent} from './components/dashboard/chat/contact-overview/contact-overview.component';
-import {MessageInputRowComponent} from './components/dashboard/chat/message-input-row/message-input-row.component';
 import {AccountComponent} from './components/account/account.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {
@@ -43,9 +41,7 @@ import {
     SidebarComponent,
     ContactListComponent,
     UtilitiesRowComponent,
-    ChatViewComponent,
     ContactOverviewComponent,
-    MessageInputRowComponent,
     AccountComponent,
     ChatComponent,
     ChatInputFormComponent

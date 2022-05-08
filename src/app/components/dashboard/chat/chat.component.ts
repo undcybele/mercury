@@ -13,7 +13,6 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  chatroom = "Chat room 1"
   messages: any[] = [
     {
       text: 'Hello',
@@ -26,14 +25,24 @@ export class ChatComponent implements OnInit {
     },
   ];
 
-  sendMessage(event: { message: any; }) {
+  sendMessage(event: { files: any[]; message: any; }) {
+    const files = !event.files ? [] : event.files.map((file) => {
+      return {
+        url: file.src,
+        type: file.type,
+        icon: 'file-text-outline',
+      };
+    });
+
     this.messages.push({
       text: event.message,
       date: new Date(),
+      files: files,
+      type: files.length ? 'file' : 'text',
       reply: true,
       user: {
-        name: 'John Doe',
-        avatar: 'https://techcrunch.com/wp-content/uploads/2015/08/safe_image.gif',
+        name: 'Jonh Doe',
+        avatar: 'https://i.gifer.com/no.gif',
       },
     });
   }
