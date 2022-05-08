@@ -1,0 +1,7 @@
+nb-form-field {
+  display: flex;
+}
+
+.form > * {
+  margin: 1rem 0;
+}
