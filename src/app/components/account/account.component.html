@@ -1,1 +1,16 @@
-<p>account works!</p>
+<nb-layout center="true">
+  <nb-layout-header><h4>Account Overview</h4></nb-layout-header>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-header>
+        <h5>{{userDetails.displayName}}</h5>
+      </nb-card-header>
+      <nb-card-body>
+        <p>{{userDetails.email}}</p>
+        <p>{{userDetails.uid}}</p>
+      </nb-card-body>
+    </nb-card>
+    <button nbButton hero status="primary" [routerLink]="['/dashboard']">Go to Dashboard</button>
+    <button nbButton hero status="warning" (click)="signOut()">Sign Out</button>
+  </nb-layout-column>
+</nb-layout>
