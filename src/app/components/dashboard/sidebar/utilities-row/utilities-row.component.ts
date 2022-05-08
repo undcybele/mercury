@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {NbWindowService} from "@nebular/theme";
+import {ChatInputFormComponent} from "./chat-input-form/chat-input-form.component";
 
 @Component({
   selector: 'app-utilities-row',
@@ -7,10 +9,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class UtilitiesRowComponent implements OnInit {
 
-  constructor() {
+  constructor(private windowService: NbWindowService) {
   }
 
   ngOnInit(): void {
   }
 
+  openWindow() {
+    const windowRef = this.windowService.open(ChatInputFormComponent, {title: `New Chat`});
+    windowRef.onClose.subscribe((visitor) => console.log("lol"));
+  }
 }
