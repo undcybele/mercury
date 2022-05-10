@@ -13,10 +13,11 @@ export class MessageService {
     this.messagesReference = this.fire.collection(this.path);
   }
 
-  sendMessage(message: IMessage, chatRoomId: string) {
-    // chatroomService -> chatroom
-    // add message to chatroom array of messages
-    // send it back
-    return this.messagesReference.doc(chatRoomId);
+  send(message: IMessage) {
+    return this.messagesReference.add({...message});
+  }
+
+  getMessages(chatRoomId: string) {
+    return this.fire.collection<IMessage | undefined>(this.path, ref => ref.orderBy('date', 'asc').where('chatRoomId', '==', `${chatRoomId}`))
   }
 }
