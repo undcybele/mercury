@@ -1,8 +1,8 @@
 import {IMessage} from "./IMessage";
 
 export interface IChatRoom {
-  uid: string;
+  uid?: string;
   name: string;
-  userIds: string[];
-  messages: Array<IMessage>;
+  userIds?: string[];
+  messages?: Array<IMessage>;
 }

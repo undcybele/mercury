@@ -1,7 +1,11 @@
 <nb-card>
   <nb-list>
-    <nb-list-item *ngFor="let user of contacts">
-      <nb-user [name]="user.name">
+    <!--    <nb-list-item *ngFor="let user of contacts">-->
+    <!--      <nb-user [name]="user.name">-->
+    <!--      </nb-user>-->
+    <!--    </nb-list-item>-->
+    <nb-list-item *ngFor="let cr of chatRooms$ | async" (click)="redirect(cr)">
+      <nb-user [name]="cr.name">
       </nb-user>
     </nb-list-item>
   </nb-list>

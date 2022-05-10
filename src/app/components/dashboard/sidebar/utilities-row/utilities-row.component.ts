@@ -17,6 +17,6 @@ export class UtilitiesRowComponent implements OnInit {
 
   openWindow() {
     const windowRef = this.windowService.open(ChatInputFormComponent, {title: `New Chat`});
-    windowRef.onClose.subscribe((visitor) => console.log("lol"));
+    windowRef.onClose.subscribe();
   }
 }

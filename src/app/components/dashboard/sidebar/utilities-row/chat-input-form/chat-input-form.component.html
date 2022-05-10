@@ -1,10 +1,12 @@
-<nb-form-field>
-  <div class="form">
-    <input type="text" placeholder="Your chat name" nbInput>
-    <nb-tag-list (tagRemove)="onTagRemove($event)">
-      <nb-tag *ngFor="let user of users" [text]="user" removable></nb-tag>
-      <input type="text" nbTagInput placeholder="Search for chat mates" (tagAdd)="onTagAdd($event)" fullWidth>
-    </nb-tag-list>
-    <button nbButton status="primary">Create Chat</button>
-  </div>
-</nb-form-field>
+<form [formGroup]="form" (ngSubmit)="create()">
+  <nb-form-field>
+    <div class="form">
+      <input type="text" formControlName="name" placeholder="Your chat name" nbInput>
+      <nb-tag-list (tagRemove)="onTagRemove($event)">
+        <nb-tag *ngFor="let user of users" [text]="user" removable></nb-tag>
+        <input type="text" nbTagInput placeholder="Search for chat mates" (tagAdd)="onTagAdd($event)" fullWidth>
+      </nb-tag-list>
+      <button nbButton status="primary" type="submit">Create Chat</button>
+    </div>
+  </nb-form-field>
+</form>
