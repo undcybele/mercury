@@ -1,5 +1,23 @@
-<div class="displayTable">
-  <div class="displayTableCell">
+<nb-layout center="true">
+  <nb-layout-header><h4>Sign In</h4></nb-layout-header>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-body>
+        <nb-form-field>
+          <input type="text" placeholder="Email" nbInput>
+          <input type="password" placeholder="Password" nbInput>
+          <a class="redirect" routerLink="/auth/forgot-password">Forgot Password?</a>
+        </nb-form-field>
+        <button nbButton status="primary">Sign In</button>
+        <p> or </p>
+        <button nbButton (click)="authService.GoogleAuth()">
+          Log in with Google
+        </button>
+        <span>Don't have an account?<a class="redirect" routerLink="/auth/sign-up"> Sign Up</a></span>
+      </nb-card-body>
+    </nb-card>
+
+
     <div class="authBlock">
       <h3>Sign In</h3>
       <div class="formGroup">
@@ -28,7 +46,7 @@
       </div>
     </div>
     <div class="redirectToLogin">
-      <span>Don't have an account?<a class="redirect" routerLink="/auth/sign-up"> Sign Up</a></span>
     </div>
-  </div>
-</div>
+  </nb-layout-column>
+</nb-layout>
+
