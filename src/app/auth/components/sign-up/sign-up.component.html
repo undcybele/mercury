@@ -1,52 +1,30 @@
-<div class="displayTable">
-  <div class="displayTableCell">
-    <div class="authBlock">
-      <h3>Sign Up</h3>
-      <div class="formGroup">
-        <input
-          type="email"
-          class="formControl"
-          placeholder="Email Address"
-          #userEmail
-          required
-        />
-      </div>
-      <div class="formGroup">
-        <input
-          type="password"
-          class="formControl"
-          placeholder="Password"
-          #userPwd
-          required
-        />
-      </div>
-      <div class="formGroup">
-        <input
-          type="button"
-          class="btn btnPrimary"
-          value="Sign Up"
-          (click)="authService.SignUp(userEmail.value, userPwd.value)"
-        />
-      </div>
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
-      <!-- Continue with Google -->
-      <div class="formGroup">
-        <button
-          type="button"
-          class="btn googleBtn"
-          (click)="authService.GoogleAuth()"
-        >
-          <i class="fab fa-google-plus-g"></i>
-          Continue with Google
-        </button>
-      </div>
-    </div>
-    <div class="redirectToLogin">
-      <span>Already have an account?
-        <a class="redirect" routerLink="/auth">Log In</a>
-      </span>
-    </div>
-  </div>
-</div>
+<nb-layout center="true">
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-header>
+        <h4>Sign Up</h4>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="form" (ngSubmit)="signUp(email.value, password.value)">
+          <nb-form-field>
+            <input type="email" placeholder="Email" nbInput #email required>
+          </nb-form-field>
+          <nb-form-field>
+            <input type="password" placeholder="Password" nbInput #password required>
+          </nb-form-field>
+          <div>
+            <button nbButton status="primary" type="submit">Sign Up</button>
+          </div>
+          <p> or </p>
+          <div>
+            <button nbButton (click)="googleAuth()">Log in with Google
+            </button>
+          </div>
+          <span>Already have an account?
+           <a class="redirect" routerLink="/auth">Log In</a>
+          </span>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
