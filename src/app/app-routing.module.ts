@@ -4,6 +4,7 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {AuthGuard} from "./auth/guards/auth.guard";
 import {DashboardGuard} from "./auth/guards/dashboard.guard";
 import {AccountComponent} from "./components/account/account.component";
+import {ErrorComponent} from "./components/error/error.component";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/auth'},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'dashboard/:chatRoomId', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'account', component: AccountComponent, canActivate: [AuthGuard]},
+  {path: '**', component: ErrorComponent},
 ];
 
 @NgModule({

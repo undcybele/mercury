@@ -31,6 +31,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {
   ChatInputFormComponent
 } from './components/dashboard/sidebar/utilities-row/chat-input-form/chat-input-form.component';
+import {ErrorComponent} from "./components/error/error.component";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {
     ContactOverviewComponent,
     AccountComponent,
     ChatComponent,
-    ChatInputFormComponent
+    ChatInputFormComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
