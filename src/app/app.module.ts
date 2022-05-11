@@ -22,7 +22,7 @@ import {
   NbListModule,
   NbMenuModule,
   NbSidebarModule, NbSidebarService, NbTagModule,
-  NbThemeModule,
+  NbThemeModule, NbToastrModule, NbToastrService,
   NbUserModule, NbWindowModule
 } from "@nebular/theme";
 import {ChatComponent} from './components/dashboard/chat/chat.component';
@@ -73,8 +73,9 @@ import {ErrorComponent} from "./components/error/error.component";
     NbFormFieldModule,
     NbInputModule,
     NbTagModule,
+    NbToastrModule.forRoot(),
   ],
-  providers: [NbSidebarService],
+  providers: [NbSidebarService, NbToastrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

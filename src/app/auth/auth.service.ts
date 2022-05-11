@@ -7,6 +7,8 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import {Router} from '@angular/router';
+import {NbToastrService} from "@nebular/theme";
+import {showToast} from "../utils/toast";
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +19,9 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
-  ) {
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private toastService: NbToastrService,
+) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((user) => {
@@ -42,9 +45,10 @@ export class AuthService {
           this.router.navigate(['dashboard']);
         });
         this.SetUserData(result.user);
+        showToast(this.toastService, "Signed in successfully", "Success!", 'success')
       })
       .catch((error) => {
-        window.alert(error.message);
+        showToast(this.toastService, `${error}`, "Error!", 'warning')
       });
   }
 
@@ -104,7 +108,7 @@ export class AuthService {
   }
 
   // Auth logic to run auth providers
-  AuthLogin(provider: any) {
+  private AuthLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
@@ -112,9 +116,10 @@ export class AuthService {
           this.router.navigate(['/dashboard']).then();
         });
         this.SetUserData(result.user).then();
+        showToast(this.toastService, "Signed in successfully", "Success!", 'success')
       })
       .catch((error) => {
-        window.alert(error);
+        showToast(this.toastService, `${error}`, "Error!", 'warning')
       });
   }
 
