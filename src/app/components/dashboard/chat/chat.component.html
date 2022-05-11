@@ -1,6 +1,6 @@
 <nb-chat *ngIf="(chatRoom$ | async) as chatRoom" [title]="chatRoom.name" scrollBottom="true" size="giant">
   <nb-chat-message
-    *ngFor="let msg of messages"
+    *ngFor="let msg of messages$ | async"
     [type]="msg!.type!"
     [message]="msg!.text!"
     [sender]="msg!.user!.name!"

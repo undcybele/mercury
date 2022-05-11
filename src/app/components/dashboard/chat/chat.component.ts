@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ChatroomService} from "../../../services/chatroom.service";
-import {Observable, take} from "rxjs";
+import {Observable} from "rxjs";
 import {IChatRoom} from "../../../models/IChatRoom";
 import {MessageService} from "../../../services/message.service";
 import {IMessage, MessageType} from "../../../models/IMessage";
@@ -15,7 +15,7 @@ import {AuthService} from "../../../auth/auth.service";
 export class ChatComponent implements OnInit {
   chatRoomId!: string | null;
   chatRoom$ = new Observable<IChatRoom | undefined>();
-  // messages$ = new Observable<(IMessage | undefined)[]>()
+  messages$ = new Observable<(IMessage | undefined)[]>()
   messages: Array<IMessage | undefined> = [];
 
   constructor(
@@ -28,11 +28,12 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(data => {
-        this.chatRoomId = data['chatRoomId']
-        this.chatRoom$ = this.chatRoomService.getChatRoom(this.chatRoomId!).valueChanges();
-        this.messageService.getMessages(this.chatRoomId!).valueChanges().pipe(take(1)).subscribe(res => {
-          this.messages = res;
-        })
+      this.chatRoomId = data['chatRoomId']
+      this.chatRoom$ = this.chatRoomService.getChatRoom(this.chatRoomId!).valueChanges();
+      // this.messageService.getMessages(this.chatRoomId!).valueChanges().pipe(take(500)).subscribe(res => {
+      //   this.messages = res;
+      // })
+      this.messages$ = this.messageService.getMessages(this.chatRoomId!).valueChanges().pipe()
       }
     )
   }
@@ -46,17 +47,7 @@ export class ChatComponent implements OnInit {
       };
     });
 
-    const newMessage: any = {
-      text: event.message,
-      date: new Date(),
-      reply: false,
-      user: {
-        name: this.authService.getLoggedUser.displayName,
-        avatar: this.authService.getLoggedUser.photoURL ? this.authService.getLoggedUser.photoURL : "../../../../assets/images"
-      }
-    }
-
-    const newDBMessage: IMessage = {
+    const newMessage: IMessage = {
       text: event.message,
       date: Date.now(),
       files: files,
@@ -68,7 +59,6 @@ export class ChatComponent implements OnInit {
         avatar: this.authService.getLoggedUser.photoURL!
       }
     }
-    this.messageService.send(newDBMessage).then()
-    this.messages.push(newDBMessage);
+    this.messageService.send(newMessage).then()
   }
 }
