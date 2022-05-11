@@ -1,52 +1,29 @@
 <nb-layout center="true">
-  <nb-layout-header><h4>Sign In</h4></nb-layout-header>
   <nb-layout-column>
     <nb-card>
+      <nb-card-header>
+        <h4>Sign In</h4>
+      </nb-card-header>
       <nb-card-body>
-        <nb-form-field>
-          <input type="text" placeholder="Email" nbInput>
-          <input type="password" placeholder="Password" nbInput>
+        <form [formGroup]="form" (ngSubmit)="signIn(email.value, password.value)">
+          <nb-form-field>
+            <input type="email" placeholder="Email" nbInput #email required>
+          </nb-form-field>
+          <nb-form-field>
+            <input type="password" placeholder="Password" nbInput #password required>
+          </nb-form-field>
           <a class="redirect" routerLink="/auth/forgot-password">Forgot Password?</a>
-        </nb-form-field>
-        <button nbButton status="primary">Sign In</button>
-        <p> or </p>
-        <button nbButton (click)="authService.GoogleAuth()">
-          Log in with Google
-        </button>
-        <span>Don't have an account?<a class="redirect" routerLink="/auth/sign-up"> Sign Up</a></span>
+          <div>
+            <button nbButton status="primary" type="submit">Sign In</button>
+          </div>
+          <p> or </p>
+          <div>
+            <button nbButton (click)="googleAuth()">Log in with Google
+            </button>
+          </div>
+          <span>Don't have an account? <a class="redirect" routerLink="/auth/sign-up">Sign Up</a></span>
+        </form>
       </nb-card-body>
     </nb-card>
-
-
-    <div class="authBlock">
-      <h3>Sign In</h3>
-      <div class="formGroup">
-        <input type="text" class="formControl" placeholder="Username" #userName required>
-      </div>
-      <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPassword required>
-      </div>
-      <!-- Calling SignIn Api from AuthService -->
-      <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Log in"
-               (click)="authService.SignIn(userName.value, userPassword.value)">
-      </div>
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
-      <!-- Calling GoogleAuth Api from AuthService -->
-      <div class="formGroup">
-        <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-          <i class="fab fa-google-plus-g"></i>
-          Log in with Google
-        </button>
-      </div>
-      <div class="forgotPassword">
-        <a class="redirect" routerLink="/auth/forgot-password">Forgot Password?</a>
-      </div>
-    </div>
-    <div class="redirectToLogin">
-    </div>
   </nb-layout-column>
 </nb-layout>
-

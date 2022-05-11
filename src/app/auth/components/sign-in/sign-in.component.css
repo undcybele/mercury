@@ -1,11 +1,13 @@
-.login-form {
-  flex: 1 !important;
+nb-layout-column {
+  display: flex;
+  justify-content: center;
+  align-self: center;
 }
 
-.artsy {
-  flex: 2 !important;
-}
-
-nb-layout {
-
+form > *{
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  margin: 1rem;
+  padding: 0
 }
