@@ -21,7 +21,7 @@ import {
   NbLayoutModule,
   NbListModule,
   NbMenuModule,
-  NbSidebarModule, NbSidebarService, NbTagModule,
+  NbSidebarModule, NbSidebarService, NbStepperModule, NbTagModule,
   NbThemeModule, NbToastrModule, NbToastrService,
   NbUserModule, NbWindowModule
 } from "@nebular/theme";
@@ -74,6 +74,7 @@ import {ErrorComponent} from "./components/error/error.component";
     NbInputModule,
     NbTagModule,
     NbToastrModule.forRoot(),
+    NbStepperModule,
   ],
   providers: [NbSidebarService, NbToastrService],
   bootstrap: [AppComponent]

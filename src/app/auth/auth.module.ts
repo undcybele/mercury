@@ -5,12 +5,19 @@ import {AuthRoutingModule} from './auth-routing.module';
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
-import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
 import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbFormFieldModule,
+  NbInputModule,
+  NbLayoutModule,
+  NbToastrModule
+} from "@nebular/theme";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    VerifyEmailComponent,
     ForgotPasswordComponent
   ],
   imports: [
@@ -19,7 +26,14 @@ import {ForgotPasswordComponent} from './components/forgot-password/forgot-passw
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    AuthRoutingModule
+    AuthRoutingModule,
+    NbLayoutModule,
+    NbCardModule,
+    NbFormFieldModule,
+    ReactiveFormsModule,
+    NbButtonModule,
+    NbToastrModule.forRoot(),
+    NbInputModule,
   ]
 })
 export class AuthModule {
