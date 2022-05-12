@@ -16,13 +16,13 @@
           <div>
             <button nbButton status="primary" type="submit">Sign In</button>
           </div>
-          <p> or </p>
-          <div>
-            <button nbButton (click)="googleAuth()">Log in with Google
-            </button>
-          </div>
-          <span>Don't have an account? <a class="redirect" routerLink="/auth/sign-up">Sign Up</a></span>
         </form>
+        <div class="alternatives">
+          <p class="or"> or </p>
+          <button nbButton (click)="googleAuth()">Log in with Google
+          </button>
+          <p>Don't have an account? <a class="redirect" routerLink="/auth/sign-up">Sign Up</a></p>
+        </div>
       </nb-card-body>
     </nb-card>
   </nb-layout-column>
