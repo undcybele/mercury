@@ -24,8 +24,8 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signUp(email: string, pass: string){
-
+  signUp(email: string, pass: string, username: string) {
+    this.authService.SignUp(email, pass, username).then()
   }
 
   googleAuth() {

@@ -15,6 +15,7 @@ import {showToast} from "../utils/toast";
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  currentUser!: IUser
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -29,6 +30,11 @@ export class AuthService {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
+        this.afs.collection<IUser>('users').valueChanges().subscribe(data => {
+          data = data.filter(({uid}) => uid === user.uid!);
+          this.currentUser = data[0];
+          console.log(this.currentUser)
+        });
       } else {
         localStorage.setItem('user', 'null');
         JSON.parse(localStorage.getItem('user')!);
@@ -53,26 +59,17 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  SignUp(email: string, password: string) {
+  SignUp(email: string, password: string, username: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificationMail() function when new user sign
-        up and returns promise */
-        //this.SendVerificationMail();
-        this.SetUserData(result.user);
+        console.log(username)
+        const user: IUser = {email: email, displayName: username, uid: result.user!.uid}
+        this.SetUserData(user).then(() => showToast(this.toastService, "Go to your dashboard", "Welcome back!", 'success')
+        );
       })
       .catch((error) => {
-        window.alert(error.message);
-      });
-  }
-
-  // Send email verification when new user sign up
-  SendVerificationMail() {
-    return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['verify-email-address']);
+        showToast(this.toastService, `${error}`, "Oops!", 'danger')
       });
   }
 
@@ -81,10 +78,12 @@ export class AuthService {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        showToast(this.toastService, `An email has been sent to your address`, "Check your mail!", 'success')
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+          this.router.navigate(['auth']));
       })
-      .catch((error) => {
-        window.alert(error);
+      .catch(() => {
+        showToast(this.toastService, `The email you introduced is not attributed to any user`, "Oops!", 'danger')
       });
   }
 
@@ -102,7 +101,6 @@ export class AuthService {
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       if (res) {
-        this.router.navigate(['/dashboard']).then();
       }
     });
   }
@@ -112,14 +110,13 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['/dashboard']).then();
-        });
         this.SetUserData(result.user).then();
-        showToast(this.toastService, "Signed in successfully", "Success!", 'success')
+        showToast(this.toastService, "Go to your dashboard", "Welcome back!", 'success')
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+          this.router.navigate(['dashboard']));
       })
-      .catch((error) => {
-        showToast(this.toastService, `${error}`, "Error!", 'warning')
+      .catch(() => {
+        showToast(this.toastService, `Your username or password might be wrong`, "Oops!", 'danger')
       });
   }
 
@@ -130,13 +127,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
-    const userData: IUser = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-    };
-    return userRef.set(userData, {
+    return userRef.set(user, {
       merge: true,
     });
   }

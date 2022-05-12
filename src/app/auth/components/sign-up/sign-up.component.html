@@ -5,24 +5,35 @@
         <h4>Sign Up</h4>
       </nb-card-header>
       <nb-card-body>
-        <form [formGroup]="form" (ngSubmit)="signUp(email.value, password.value)">
-          <nb-form-field>
-            <input type="email" placeholder="Email" nbInput #email required>
-          </nb-form-field>
-          <nb-form-field>
-            <input type="password" placeholder="Password" nbInput #password required>
-          </nb-form-field>
-          <div>
-            <button nbButton status="primary" type="submit">Sign Up</button>
+        <form [formGroup]="form" (ngSubmit)="signUp(email.value, password.value, username.value)">
+          <nb-stepper #stepper>
+            <nb-step label="Welcome" class="step">
+              <nb-form-field>
+                <input type="email" placeholder="Email" nbInput #email required>
+              </nb-form-field>
+              <nb-form-field>
+                <input type="password" placeholder="Password" nbInput #password required>
+              </nb-form-field>
+              <div class="centered-div">
+                <button nbButton status="primary" nbStepperNext>next</button>
+              </div>
+            </nb-step>
+            <nb-step label="Details">
+              <nb-form-field>
+                <input type="text" placeholder="Username" nbInput #username required>
+              </nb-form-field>
+              <div class="centered-div">
+                <button nbButton status="primary" type="submit">Sign Up</button>
+              </div>
+            </nb-step>
+          </nb-stepper>
+          <div class="centered-div outside">
+            <p> or </p>
+            <button nbButton (click)="googleAuth()">Log in with Google</button>
+            <span>Already have an account?
+               <a class="redirect" routerLink="/auth">Log In</a>
+              </span>
           </div>
-          <p> or </p>
-          <div>
-            <button nbButton (click)="googleAuth()">Log in with Google
-            </button>
-          </div>
-          <span>Already have an account?
-           <a class="redirect" routerLink="/auth">Log In</a>
-          </span>
         </form>
       </nb-card-body>
     </nb-card>
