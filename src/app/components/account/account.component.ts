@@ -18,7 +18,7 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userDetails = this.authService.getLoggedUser
+    this.userDetails = this.authService.currentUser
     console.log(this.userDetails)
   }
 
