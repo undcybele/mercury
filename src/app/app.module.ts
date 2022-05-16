@@ -32,6 +32,7 @@ import {
   ChatInputFormComponent
 } from './components/dashboard/sidebar/utilities-row/chat-input-form/chat-input-form.component';
 import {ErrorComponent} from "./components/error/error.component";
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {ErrorComponent} from "./components/error/error.component";
     RouterModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireStorageModule,
     FormsModule,
     NbThemeModule.forRoot({name: 'dark'}),
     NbWindowModule.forRoot(),
