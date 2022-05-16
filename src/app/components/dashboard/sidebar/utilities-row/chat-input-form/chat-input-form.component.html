@@ -3,9 +3,17 @@
     <div class="form">
       <input type="text" formControlName="name" placeholder="Your chat name" nbInput>
       <nb-tag-list (tagRemove)="onTagRemove($event)">
-        <nb-tag *ngFor="let user of users" [text]="user" removable></nb-tag>
-        <input type="text" nbTagInput placeholder="Search for chat mates" (tagAdd)="onTagAdd($event)" fullWidth>
+        <nb-tag *ngFor="let user of names" [text]="user" removable></nb-tag>
+        <input type="text" formControlName="searchValue" (keydown)="searchUsers()" nbTagInput
+               placeholder="Search for chat mates" fullWidth>
       </nb-tag-list>
+      <div *ngIf="searchValue !== ''">
+        <nb-list *ngIf="foundUsers$ | async as users">
+          <nb-list-item *ngFor="let user of users">
+            <nb-user [name]="user.displayName" (click)="addUser(user)"></nb-user>
+          </nb-list-item>
+        </nb-list>
+      </div>
       <button nbButton status="primary" type="submit">Create Chat</button>
     </div>
   </nb-form-field>

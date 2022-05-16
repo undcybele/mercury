@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {NbTagComponent, NbTagInputAddEvent} from "@nebular/theme";
+import {NbTagComponent, NbToastrService} from "@nebular/theme";
 import {ChatroomService} from "../../../../../services/chatroom.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../../auth/auth.service";
-import {Observable, take} from "rxjs";
+import {Observable} from "rxjs";
 import {IUser} from "../../../../../models/IUser";
 import {UserService} from "../../../../../services/user.service";
+import {showToast} from "../../../../../utils/toast";
 
 @Component({
   selector: 'app-chat-input-form',
@@ -15,50 +16,62 @@ import {UserService} from "../../../../../services/user.service";
 })
 export class ChatInputFormComponent implements OnInit {
   form!: FormGroup;
+  foundUsers$: Observable<IUser[]> | null = null;
 
   constructor(
     private fb: FormBuilder,
     private chatRoomService: ChatroomService,
     private router: Router,
     private authService: AuthService,
-    private usersService: UserService
+    private usersService: UserService,
+    private toastService: NbToastrService,
   ) {
     this.form = fb.group({
       name: null,
+      searchValue: ''
     });
   }
 
   ngOnInit(): void {
   }
 
-  tags: Set<string> = new Set<string>();
+  names: Set<string> = new Set<string>();
   userIds: Set<string> = new Set<string>()
   users$ = new Observable<(IUser | undefined)[]>()
 
-  addUser({value, input}: NbTagInputAddEvent) {
-    let newUser!: IUser
-    this.users$ = this.usersService.getUserData(value).valueChanges()
-    console.log(this.users$)
-    this.userIds.add(newUser!.uid)
-    this.tags.add(newUser!.displayName)
-
-    input.nativeElement.value = ''
+  addUser(user: IUser) {
+    this.userIds.add(user.uid)
+    this.names.add(user.displayName)
+    this.form.value.searchValue = ''
+    showToast(this.toastService, "Chat mate added successfully", "Yay friends!", 'success')
   }
 
+
   onTagRemove(tagToRemove: NbTagComponent): void {
-    //this.users.delete(tagToRemove)
+    this.names.delete(tagToRemove.text)
   }
 
   create() {
-    if(this.userIds.size){
+    if (this.userIds.size) {
       const chatroom = this.form.value;
       chatroom.userIds = [];
-      chatroom.userIds!.push(this.authService.getLoggedUser.uid);
-      chatroom.userIds!.concat(this.userIds)
+      chatroom.userIds.push();
+      chatroom.userIds = [...this.userIds, this.authService.getLoggedUser.uid]
+      console.log(chatroom.userIds)
       this.chatRoomService.create({...chatroom}).then((res) => {
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
           this.router.navigate(['dashboard', res.id]));
       });
     }
+  }
+
+  searchUsers() {
+    if (this.form.get('searchValue')?.value) {
+      this.foundUsers$ = this.usersService.getSearchResults(this.form.get('searchValue')?.value);
+    }
+  }
+
+  get searchValue() {
+    return this.form.get('searchValue')?.value;
   }
 }

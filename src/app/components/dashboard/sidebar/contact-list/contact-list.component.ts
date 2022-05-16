@@ -23,7 +23,7 @@ export class ContactListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chatRooms$ = this.chatRoomService.getChatRooms(this.authService.getLoggedUser.uid);
+    this.chatRooms$ = this.chatRoomService.getChatRooms(this.authService.uid);
   }
 
   redirect(cr: IChatRoom) {

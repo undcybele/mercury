@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {IUser} from "../models/IUser";
-import {IMessage} from "../models/IMessage";
+import {map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +14,15 @@ export class UserService {
     this.usersReference = this.fire.collection(this.path)
   }
 
+  getSearchResults(searchValue: string) {
+    return this.fire.collection<IUser>(this.path, ref => ref
+      .orderBy("displayName"))
+      .valueChanges().pipe(map(user => user.filter(usr => {
+        return usr.displayName.toLowerCase().includes(searchValue.toLowerCase());
+      })));
+  }
+
   getUserData(displayName: string) {
     return this.fire.collection<IUser | undefined>(this.path, ref => ref.where('displayName', '==', `${displayName}`))
   }
-
-  getAllChatRoomsForUser(user: IUser) {
-    //assert local user
-    //load all chat rooms by id
-    //return an array
-  }
-
 }

@@ -18,7 +18,6 @@ export class ChatComponent implements OnInit {
   chatRoom$ = new Observable<IChatRoom | undefined>();
   messages$ = new Observable<(IMessage | undefined)[]>()
   messages: Array<IMessage | undefined> = [];
-  downloadURL!: Observable<string>
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -33,7 +32,7 @@ export class ChatComponent implements OnInit {
     this.activatedRoute.params.subscribe(data => {
         this.chatRoomId = data['chatRoomId']
         this.chatRoom$ = this.chatRoomService.getChatRoom(this.chatRoomId!).valueChanges();
-        this.messages$ = this.messageService.getMessages(this.chatRoomId!).valueChanges().pipe()
+      this.messages$ = this.messageService.getMessages(this.chatRoomId!).valueChanges();
       }
     )
   }

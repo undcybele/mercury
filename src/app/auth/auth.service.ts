@@ -16,13 +16,16 @@ import {showToast} from "../utils/toast";
 export class AuthService {
   userData: any; // Save logged in user data
   currentUser!: IUser
+
+  defaultAvatar = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.studnet.com.co%2Fwp-content%2Fuploads%2F2016%2F10%2Fdefault-avatar-1024x1024.png&f=1&nofb=1';
+
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     private toastService: NbToastrService,
-) {
+  ) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((user) => {
@@ -33,7 +36,6 @@ export class AuthService {
         this.afs.collection<IUser>('users').valueChanges().subscribe(data => {
           data = data.filter(({uid}) => uid === user.uid!);
           this.currentUser = data[0];
-          console.log(this.currentUser)
         });
       } else {
         localStorage.setItem('user', 'null');
@@ -64,7 +66,7 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         console.log(username)
-        const user: IUser = {email: email, displayName: username, uid: result.user!.uid}
+        const user: IUser = {email: email, displayName: username, uid: result.user!.uid, photoURL: this.defaultAvatar}
         this.SetUserData(user).then(() => showToast(this.toastService, "Go to your dashboard", "Welcome back!", 'success')
         );
       })
@@ -89,7 +91,11 @@ export class AuthService {
 
   // Returns an IUser object when a user is logged in
   get getLoggedUser(): IUser {
-    return JSON.parse(localStorage.getItem('user')!);
+    return this.currentUser;
+  }
+
+  get uid() {
+    return JSON.parse(localStorage.getItem('user')!).uid;
   }
 
   // Returns true when user is logged in and email is verified
