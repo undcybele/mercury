@@ -1,5 +1,3 @@
-import {NbChatMessageFile} from "@nebular/theme";
-
 export enum MessageType {
   Text = 'text', Image = 'file'
 }
@@ -8,7 +6,7 @@ export enum MessageType {
 export interface IMessage {
   uid?: string;
   text: string;
-  files: NbChatMessageFile[];
+  files: any[];
   date?: any;
   type?: MessageType;
   senderId?: string;
