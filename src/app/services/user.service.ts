@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {IUser} from "../models/IUser";
+import {IMessage} from "../models/IMessage";
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,8 @@ export class UserService {
     this.usersReference = this.fire.collection(this.path)
   }
 
-  getUserData(user: IUser) {
-    //load all data
-    //return it
+  getUserData(displayName: string) {
+    return this.fire.collection<IUser | undefined>(this.path, ref => ref.where('displayName', '==', `${displayName}`))
   }
 
   getAllChatRoomsForUser(user: IUser) {
