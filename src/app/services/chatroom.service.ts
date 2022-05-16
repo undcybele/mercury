@@ -32,24 +32,4 @@ export class ChatroomService {
   getChatRoom(chatRoomId: string) {
     return this.fire.collection<IChatRoom>(this.path).doc(chatRoomId);
   }
-
-  createChatRoom(invitedUser: IUser) {
-
-    //create chat room
-    //initialize everything
-    //add local user + invited User ids to list of users
-    //publish
-    //return chatroom
-  }
-
-  addUserToChatRoom(invitedUser: IUser, chatroomId: String) {
-    //check invited user exists
-    //check invited user not in chat room already
-    //add user
-  }
-
-  getMessages(chatroomId: String) {
-    //get latest x messages
-    //display them inversely chronologically
-  }
 }

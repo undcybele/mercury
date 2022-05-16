@@ -12,7 +12,6 @@ import {IUser} from "../../../../models/IUser";
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit {
-  contacts: Array<{ name: string }> = [{name: "Nicoleta"}, {name: "Larisa"}, {name: "Ana"}]
   chatRooms$ = new Observable<IChatRoom[]>();
   chatRooms: Array<IChatRoom> | null = null;
 
