@@ -4,7 +4,6 @@ import {ChatroomService} from "../../../../services/chatroom.service";
 import {Observable} from "rxjs";
 import {AuthService} from "../../../../auth/auth.service";
 import {Router} from "@angular/router";
-import {IUser} from "../../../../models/IUser";
 
 @Component({
   selector: 'app-contact-list',
@@ -29,5 +28,4 @@ export class ContactListComponent implements OnInit {
   redirect(cr: IChatRoom) {
     this.router.navigate(['dashboard', cr.uid]).then()
   }
-
 }

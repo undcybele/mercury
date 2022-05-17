@@ -63,7 +63,6 @@ export class AuthService {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log(username)
         const user: IUser = {email: email, displayName: username, uid: result.user!.uid, photoURL: this.defaultAvatar}
         this.SetUserData(user).then(() => showToast(this.toastService, "Go to your dashboard", "Welcome back!", 'success')
         );

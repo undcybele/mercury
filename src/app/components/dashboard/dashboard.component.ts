@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(data => {
         if(!data['chatRoomId']){
-          console.log("No chat open")
           this.noChat = false
         }
        }

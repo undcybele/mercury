@@ -46,7 +46,6 @@ export class ChatInputFormComponent implements OnInit {
     showToast(this.toastService, "Chat mate added successfully", "Yay friends!", 'success')
   }
 
-
   onTagRemove(tagToRemove: NbTagComponent): void {
     this.names.delete(tagToRemove.text)
   }
@@ -56,8 +55,7 @@ export class ChatInputFormComponent implements OnInit {
       const chatroom = this.form.value;
       chatroom.userIds = [];
       chatroom.userIds.push();
-      chatroom.userIds = [...this.userIds, this.authService.getLoggedUser.uid]
-      console.log(chatroom.userIds)
+      chatroom.userIds = [...this.userIds, this.authService.uid]
       this.chatRoomService.create({...chatroom}).then((res) => {
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
           this.router.navigate(['dashboard', res.id]));

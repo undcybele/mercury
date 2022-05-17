@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../auth.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -28,7 +27,4 @@ export class SignInComponent implements OnInit {
   googleAuth() {
     this.authService.GoogleAuth().then()
   }
-
-
-
 }

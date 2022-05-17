@@ -43,18 +43,17 @@ export class ChatComponent implements OnInit {
       date: Date.now(),
       files: files,
       type: files.length ? MessageType.Image : MessageType.Text,
-      senderId: this.authService.getLoggedUser.uid,
+      senderId: this.authService.currentUser.uid,
       chatRoomId: this.chatRoomId!,
       user: {
-        name: this.authService.getLoggedUser.displayName || "Unknown user",
-        avatar: this.authService.getLoggedUser.photoURL!
+        name: this.authService.currentUser.displayName || "Unknown user",
+        avatar: this.authService.currentUser.photoURL!
       }
     }
     this.messageService.send(newMessage).then()
   }
 
   sendMessage(event: { files: any[]; message: any; }) {
-    console.log(event)
     if (event.files.length === 0) {
       this.createMessage(event.message, [])
     } else {

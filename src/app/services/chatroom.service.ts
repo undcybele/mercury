@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {IChatRoom} from "../models/IChatRoom";
-import {IUser} from "../models/IUser";
 import {map} from "rxjs";
-
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +13,6 @@ export class ChatroomService {
   constructor(private fire: AngularFirestore) {
     this.chatsReference = this.fire.collection(this.path)
   }
-
 
   create(chatRoom: IChatRoom) {
     return this.chatsReference.add({...chatRoom});
