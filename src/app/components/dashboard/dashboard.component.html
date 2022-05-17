@@ -2,7 +2,13 @@
   <nb-layout-column class="sidebar">
     <app-sidebar></app-sidebar>
   </nb-layout-column>
-  <nb-layout-column class="chat">
+  <nb-layout-column class="chat" *ngIf="noChat; else noChatOpen">
     <app-chat></app-chat>
   </nb-layout-column>
 </nb-layout>
+
+<ng-template #noChatOpen>
+  <nb-layout-column class="empty-chat">
+    <h5>Select a room on the left and start chatting!</h5>
+  </nb-layout-column>
+</ng-template>

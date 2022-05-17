@@ -2,6 +2,13 @@
   flex: 1 !important;
 }
 
-.chat {
+.chat{
   flex: 4 !important;
+}
+
+.empty-chat {
+  flex: 4 !important;
+  display: flex;
+  align-items: center !important;
+  justify-content: center;
 }
