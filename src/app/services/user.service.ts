@@ -18,7 +18,7 @@ export class UserService {
     return this.fire.collection<IUser>(this.path, ref => ref
       .orderBy("displayName"))
       .valueChanges().pipe(map(user => user.filter(usr => {
-        return usr.displayName.toLowerCase().includes(searchValue.toLowerCase());
+        return usr.displayName && usr.displayName.toLowerCase().includes(searchValue.toLowerCase());
       })));
   }
 

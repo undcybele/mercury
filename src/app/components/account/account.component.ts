@@ -12,13 +12,13 @@ export class AccountComponent implements OnInit {
   userDetails!: IUser
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
   ) {
   }
 
   ngOnInit(): void {
-    this.userDetails = this.authService.currentUser
+    this.userDetails = this.authService.currentUser!
     console.log(this.userDetails)
   }
 

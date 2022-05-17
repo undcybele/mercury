@@ -3,11 +3,11 @@
   <nb-layout-column>
     <nb-card>
       <nb-card-header>
-        <h5>{{userDetails.displayName}}</h5>
+        <h5>{{authService.currentUser.displayName}}</h5>
       </nb-card-header>
       <nb-card-body>
-        <p>{{userDetails.email}}</p>
-        <p>{{userDetails.uid}}</p>
+        <p>{{authService.currentUser.email}}</p>
+        <p>{{authService.currentUser.uid}}</p>
       </nb-card-body>
     </nb-card>
     <button nbButton hero status="primary" [routerLink]="['/dashboard']">Go to Dashboard</button>

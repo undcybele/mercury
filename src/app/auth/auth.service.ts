@@ -4,7 +4,6 @@ import * as auth from 'firebase/auth';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
-  AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import {Router} from '@angular/router';
 import {NbToastrService} from "@nebular/theme";
@@ -15,7 +14,7 @@ import {showToast} from "../utils/toast";
 })
 export class AuthService {
   userData: any; // Save logged in user data
-  currentUser!: IUser
+  _currentUser!: IUser
 
   defaultAvatar = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.studnet.com.co%2Fwp-content%2Fuploads%2F2016%2F10%2Fdefault-avatar-1024x1024.png&f=1&nofb=1';
 
@@ -32,10 +31,9 @@ export class AuthService {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user')!);
         this.afs.collection<IUser>('users').valueChanges().subscribe(data => {
           data = data.filter(({uid}) => uid === user.uid!);
-          this.currentUser = data[0];
+          this._currentUser = data[0];
         });
       } else {
         localStorage.setItem('user', 'null');
@@ -89,9 +87,13 @@ export class AuthService {
       });
   }
 
+  get currentUser(): IUser {
+    return this._currentUser
+  }
+
   // Returns an IUser object when a user is logged in
-  get getLoggedUser(): IUser {
-    return this.currentUser;
+  get loggedUser(): IUser {
+    return JSON.parse(<string>localStorage.getItem('user'));
   }
 
   get uid() {
@@ -100,7 +102,7 @@ export class AuthService {
 
   // Returns true when user is logged in and email is verified
   get isLoggedIn(): boolean {
-    return this.getLoggedUser !== null
+    return this.loggedUser !== null
   }
 
   // Sign in with Google
@@ -116,7 +118,7 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.SetUserData(result.user).then();
+        this.SetUserData(result.user).then()
         showToast(this.toastService, "Go to your dashboard", "Welcome back!", 'success')
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
           this.router.navigate(['dashboard']));
@@ -130,12 +132,13 @@ export class AuthService {
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
-    return userRef.set(user, {
-      merge: true,
-    });
+    const u: IUser = {
+      uid: user.uid,
+      email: user.email,
+      photoURL: user.photoURL,
+      displayName: user.displayName
+    }
+   return this.afs.collection('users').doc(user.uid).set({...u})
   }
 
   // Sign out
