@@ -12,7 +12,6 @@ import {firebaseConfig} from "../environments/firebase.config";
 import {SidebarComponent} from './components/dashboard/sidebar/sidebar.component';
 import {ContactListComponent} from './components/dashboard/sidebar/contact-list/contact-list.component';
 import {UtilitiesRowComponent} from './components/dashboard/sidebar/utilities-row/utilities-row.component';
-import {ContactOverviewComponent} from './components/dashboard/chat/contact-overview/contact-overview.component';
 import {AccountComponent} from './components/account/account.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {
@@ -33,6 +32,7 @@ import {
 } from './components/dashboard/sidebar/utilities-row/chat-input-form/chat-input-form.component';
 import {ErrorComponent} from "./components/error/error.component";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import {SteganoComponent} from './components/dashboard/sidebar/utilities-row/stegano/stegano.component';
 
 @NgModule({
   declarations: [
@@ -43,11 +43,11 @@ import {AngularFireStorageModule} from "@angular/fire/compat/storage";
     SidebarComponent,
     ContactListComponent,
     UtilitiesRowComponent,
-    ContactOverviewComponent,
     AccountComponent,
     ChatComponent,
     ChatInputFormComponent,
     ErrorComponent,
+    SteganoComponent,
   ],
   imports: [
     BrowserModule,
