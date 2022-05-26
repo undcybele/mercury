@@ -20,7 +20,7 @@ import {
   NbLayoutModule,
   NbListModule,
   NbMenuModule,
-  NbSidebarModule, NbSidebarService, NbStepperModule, NbTagModule,
+  NbSidebarModule, NbSidebarService, NbStepperModule, NbTabsetModule, NbTagModule,
   NbThemeModule, NbToastrModule, NbToastrService,
   NbUserModule, NbWindowModule
 } from "@nebular/theme";
@@ -77,6 +77,7 @@ import {SteganoComponent} from './components/dashboard/sidebar/utilities-row/ste
     NbTagModule,
     NbToastrModule.forRoot(),
     NbStepperModule,
+    NbTabsetModule,
   ],
   providers: [NbSidebarService, NbToastrService],
   bootstrap: [AppComponent]
