@@ -1,0 +1,9 @@
+.decode-form{
+  display: flex;
+  flex-direction: column;
+}
+
+.decode-form > * {
+  margin: 10px;
+}
+

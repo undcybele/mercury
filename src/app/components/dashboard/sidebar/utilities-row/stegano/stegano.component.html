@@ -1,22 +1,21 @@
 <nb-tabset>
   <nb-tab tabTitle="Encode">
-    <form [formGroup]="form" (ngSubmit)="create()">
+    <form id="encoder-form" [formGroup]="form" (ngSubmit)="create()" class="decode-form">
       <p>Input an image:</p>
-      <input type="file" id="upload_file" placeholder="Choose your image" alt="img" formControlName="image">
+      <input nbInput type="file" id="upload_file" placeholder="Choose your image" alt="img" formControlName="image">
       <p>Input your text</p>
-      <input type="text" placeholder="Now input your text" formControlName="text">
-      <input type="password" placeholder="Choose a password" formControlName="password">
-      <button type="submit">Encrypt</button>
+      <input nbInput type="text" placeholder="Now input your text" formControlName="text">
+      <input nbInput type="password" placeholder="Choose a password" formControlName="password">
+      <button nbButton type="submit">Encrypt</button>
     </form>
-    <img id="img" alt="result image" src="">
   </nb-tab>
   <nb-tab tabTitle="Decode">
-    <form [formGroup]="form2" (ngSubmit)="decrypt()">
-      <p>Input the image to be decoded:</p>
-      <input type="file" id="upload_cover" placeholder="Choose your image" alt="img" formControlName="image">
-      <p>Input your text</p>
-      <input type="password" placeholder="Input your password password" formControlName="password">
-      <button type="submit">Decrypt</button>
+    <form [formGroup]="form2" (ngSubmit)="decrypt()" class="decode-form">
+      <p>Upload the image to be decoded:</p>
+      <input nbInput type="file" id="upload_cover" placeholder="Choose your image" alt="img" formControlName="image">
+      <p>Password:</p>
+      <input nbInput type="password" placeholder="Input your password" formControlName="password">
+      <button nbButton type="submit">Decrypt</button>
     </form>
     <p id="decoded_message"></p>
   </nb-tab>
