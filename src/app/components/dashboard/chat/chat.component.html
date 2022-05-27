@@ -1,3 +1,4 @@
+<div class="container">
 <nb-chat *ngIf="(chatRoom$ | async) as chatRoom" [title]="chatRoom.name" scrollBottom="true" size="giant">
   <nb-chat-message
     *ngFor="let msg of messages$ | async"
@@ -9,5 +10,7 @@
     [avatar]="msg!.user!.avatar!"
   >
   </nb-chat-message>
-  <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true"></nb-chat-form>
+  <nb-chat-form id="chat-form" (send)="sendMessage($event)" [dropFiles]="true" dropFilePlaceholder="Drop your files here"></nb-chat-form>
 </nb-chat>
+  <nb-action (click)="openWindowStegano()" icon="file-text-outline"></nb-action>
+</div>

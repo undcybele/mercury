@@ -7,6 +7,8 @@ import {MessageService} from "../../../services/message.service";
 import {IMessage, MessageType} from "../../../models/IMessage";
 import {AuthService} from "../../../auth/auth.service";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
+import {SteganoComponent} from "../sidebar/utilities-row/stegano/stegano.component";
+import {NbWindowService} from "@nebular/theme";
 
 @Component({
   selector: 'app-chat',
@@ -25,6 +27,7 @@ export class ChatComponent implements OnInit {
     private messageService: MessageService,
     private authService: AuthService,
     private storage: AngularFireStorage,
+    private windowService: NbWindowService,
   ) {
   }
 
@@ -35,6 +38,11 @@ export class ChatComponent implements OnInit {
       this.messages$ = this.messageService.getMessages(this.chatRoomId!).valueChanges();
       }
     )
+}
+
+  openWindowStegano() {
+    const windowRef = this.windowService.open(SteganoComponent, {title: `Steganography`});
+    windowRef.onClose.subscribe();
   }
 
   createMessage(message: string, files: any) {
