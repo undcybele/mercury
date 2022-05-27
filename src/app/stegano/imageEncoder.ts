@@ -2,7 +2,7 @@ import {encrypt, toBitArray, toNormalizedArray, toSteganoArray} from "./transfor
 import * as png from "fast-png";
 import {ImageData} from "fast-png";
 import * as base64 from "base64-js";
-import {environment} from "../../../environments/environment"
+import {environment} from "../../environments/environment"
 
 /*
 * Returns encoded image data with a hidden text

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {encode} from "../../../../../services/stegano/imageEncoder";
-import {decode} from "../../../../../services/stegano/imageDecoder";
-import {hasCapacity, isPNG} from "../../../../../services/stegano/checks";
+import {encode} from "../../../../../stegano/imageEncoder";
+import {decode} from "../../../../../stegano/imageDecoder";
+import {hasCapacity, isPNG} from "../../../../../stegano/checks";
 import {showToast} from "../../../../../utils/toast";
 import {NbToastrService} from "@nebular/theme";
 
@@ -53,9 +53,10 @@ export class SteganoComponent implements OnInit {
         } catch {
           toast("The image must be of PNG format and of RGB type", "Bad image!")
         }
-        // @ts-ignore
-        document.getElementById("img").src = "data:image/png;base64," + encode(<ArrayBuffer>e.target!.result, text, pass)
-      }
+        const newImage = document.createElement("img")
+        newImage.setAttribute("src", "data:image/png;base64," + encode(<ArrayBuffer>e.target!.result, text, pass))
+        document.getElementById('encoder-form')!.appendChild(newImage)
+        }
       reader.readAsArrayBuffer(f)
     }
   }
