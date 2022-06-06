@@ -12,7 +12,7 @@ import {
   NbFormFieldModule,
   NbInputModule,
   NbLayoutModule,
-  NbToastrModule
+  NbToastrModule, NbWindowModule, NbWindowService
 } from "@nebular/theme";
 import {ReactiveFormsModule} from "@angular/forms";
 
@@ -34,7 +34,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     NbButtonModule,
     NbToastrModule.forRoot(),
     NbInputModule,
-  ]
+    NbWindowModule,
+  ],
+  providers: [NbWindowService]
 })
 export class AuthModule {
 }
