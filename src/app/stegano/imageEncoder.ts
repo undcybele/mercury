@@ -17,7 +17,6 @@ export function encode(image: ArrayBuffer, text: string, pass: string) {
   const byteText = toBitArray(encodedText)
   const pngData = png.decode(image)
   const imageData = <Uint8Array>pngData.data
-  console.log(base64.toByteArray(environment.eofCode))
   const normalizedImage = toNormalizedArray(imageData, byteText.length)
   const steganoImage = toSteganoArray(normalizedImage, byteText)
   const imageObject: ImageData = {width: pngData.width, height: pngData.height, data: steganoImage}
